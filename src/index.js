@@ -32,9 +32,28 @@ class Form extends React.Component {
 
 class History extends React.Component {
   render() {
-    return(
-        <p>history</p>
-    );
+    if (this.props.thisIsTheFirst) {
+      return(
+        <p>There is no history</p>
+      );
+    } else {
+      let theList = this.props.numList;
+      let res1 = [];
+      let res2 = [];
+      for (var i=0; i < theList.length; i++) {
+        for (var j=0; j < theList[i].length; j++) {
+          res1.push(<li>{theList[i][j]}</li>);
+        }
+        res2.push(<li><ul>{res1}</ul></li>);
+        res1 = [];
+      }
+      return(
+        <div>
+          <p>History</p>
+          <ul>{res2}</ul>
+        </div>
+      );
+    }
   }
 }
 
@@ -58,7 +77,10 @@ class MainApp extends React.Component {
         <Form
           onClick={() => this.handleClick()}
         />
-        <History />
+        <History
+          thisIsTheFirst = {this.state.thisIsTheFirst}
+          numList = {this.state.numList}
+        />
       </div>
     );
   }
