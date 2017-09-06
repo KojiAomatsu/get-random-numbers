@@ -52,8 +52,8 @@ class MainApp extends React.Component {
     return (
       <div>
         <Label
-          thisIsTheFirst = {this.thisIsTheFirst}
-          numlist = {this.numlist}
+          thisIsTheFirst = {this.state.thisIsTheFirst}
+          numlist = {this.state.numlist}
         />
         <Form
           onClick={() => this.handleClick()}
@@ -63,6 +63,9 @@ class MainApp extends React.Component {
     );
   }
   handleClick() {
+    this.setState({
+      thisIsTheFirst : false
+    });
   }
 }
 
