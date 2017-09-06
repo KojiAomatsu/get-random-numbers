@@ -11,7 +11,7 @@ class Label extends React.Component {
         );
     } else {
       let res = [];
-      let nums = [4,5,6];
+      let nums = this.props.numList[0];
       for (var i = 0; i < nums.length; i++) {
         res.push(<li>{nums[i]}</li>);
       }
@@ -43,7 +43,7 @@ class MainApp extends React.Component {
     super();
     this.state = {
       thisIsTheFirst : true,
-      numlist : [[8],[9,8]],
+      numList : [],
       amount : 2,
       maximum : 2000
     }
@@ -53,7 +53,7 @@ class MainApp extends React.Component {
       <div>
         <Label
           thisIsTheFirst = {this.state.thisIsTheFirst}
-          numlist = {this.state.numlist}
+          numList = {this.state.numList}
         />
         <Form
           onClick={() => this.handleClick()}
@@ -63,8 +63,16 @@ class MainApp extends React.Component {
     );
   }
   handleClick() {
+    let aList = [];
+    let theList = this.state.numList;
+    for (var i=0;i<this.state.amount;i++) {
+      let randomN = Math.floor(Math.random() * this.state.maximum) + 1;
+      aList.push(randomN);
+    }
+    theList.unshift(aList);
     this.setState({
-      thisIsTheFirst : false
+      thisIsTheFirst : false,
+      numlist : theList
     });
   }
 }
