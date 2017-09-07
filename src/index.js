@@ -104,26 +104,32 @@ class MainApp extends React.Component {
     );
   }
   handleClick(form) {
+    let maxi = this.state.maximum;
+    let amou = this.state.amount;
     if (form.amount !== "" && form.maximum !== "") {
       this.setState({
         maximum : form.maximum,
         amount : form.amount
       });
+      maxi = form.maximum;
+      amou = form.amount;
     } else if (form.maximum !== "") {
       this.setState({
         maximum : form.maximum
       });
+      maxi = form.maximum;
     } else if (form.amount !== "") {
       this.setState({
         amount : form.amount
       });
+      amou = form.amount;
     } else {
       //do nothing.
     }
     let aList = [];
     let theList = this.state.numList;
-    for (var i=0;i<this.state.amount;i++) {
-      let randomN = Math.floor(Math.random() * this.state.maximum) + 1;
+    for (var i=0;i<amou;i++) {
+      let randomN = Math.floor(Math.random() * maxi) + 1;
       aList.push(randomN);
     }
     theList.unshift(aList);
