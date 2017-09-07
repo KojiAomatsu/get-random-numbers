@@ -23,9 +23,28 @@ class Label extends React.Component {
 }
 
 class Form extends React.Component {
+
+
+  buttonClicked() {
+    const the_form = document.forms.customForm;
+    const data = {
+      amount: the_form.amount.value,
+      maximum: the_form.maximum.value
+    }
+    this.props.onClick(data);
+  }
+
+
   render() {
     return (
-      <button className="shuffle" onClick={() => this.props.onClick()}>Shuffle</button>
+      <form name="customForm">
+      <label>amount</label>
+      <input type="number" name="amount"/>
+      <label>maximum</label>
+      <input type="number" name="maximum"/>
+      <br/>
+      <button className="shuffle" onClick={(e) => {e.preventDefault();this.buttonClicked();}}>Shuffle</button>
+      </form>
     );
   }
 }
@@ -75,7 +94,7 @@ class MainApp extends React.Component {
           numList = {this.state.numList}
         />
         <Form
-          onClick={() => this.handleClick()}
+          onClick={(form) => this.handleClick(form)}
         />
         <History
           thisIsTheFirst = {this.state.thisIsTheFirst}
@@ -84,7 +103,23 @@ class MainApp extends React.Component {
       </div>
     );
   }
-  handleClick() {
+  handleClick(form) {
+    if (form.amount !== "" && form.maximum !== "") {
+      this.setState({
+        maximum : form.maximum,
+        amount : form.amount
+      });
+    } else if (form.maximum !== "") {
+      this.setState({
+        maximum : form.maximum
+      });
+    } else if (form.amount !== "") {
+      this.setState({
+        amount : form.amount
+      });
+    } else {
+      //do nothing.
+    }
     let aList = [];
     let theList = this.state.numList;
     for (var i=0;i<this.state.amount;i++) {
